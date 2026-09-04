@@ -21,7 +21,7 @@ O projeto utiliza o **Gemini** para geração das respostas e **Sentence Transfo
 ### 1. Clonar o projeto
 
 ```bash
-git clone <URL_DO_REPOSITORIO>
+git clone https://github.com/JoseFortunato90/RAG-Mutation-Test.git
 cd "RAG Mutation Testing"
 ```
 
@@ -39,12 +39,6 @@ Ative a Virtual Environment:
 
 ```bash
 source venv/bin/activate
-```
-
-Para sair da Virtual Environment:
-
-```bash
-deactivate
 ```
 
 #### Windows
@@ -67,12 +61,6 @@ No PowerShell:
 venv\Scripts\Activate.ps1
 ```
 
-Para sair da Virtual Environment:
-
-```bash
-deactivate
-```
-
 ### 3. Instalar as dependências
 
 Com a Virtual Environment ativada, execute:
@@ -89,8 +77,6 @@ Crie um arquivo chamado `.env` na raiz do projeto:
 GEMINI_API_KEY=sua_chave_aqui
 ```
 
-> **Importante:** não compartilhe o arquivo `.env` ou sua chave da API no GitHub.
-
 ### 5. Adicionar o documento
 
 Crie uma pasta chamada `data` na raiz do projeto:
@@ -99,7 +85,7 @@ Crie uma pasta chamada `data` na raiz do projeto:
 mkdir data
 ```
 
-Coloque o arquivo PDF dentro dela com o nome:
+Coloque um arquivo PDF dentro dela com o nome:
 
 ```text
 document.pdf
