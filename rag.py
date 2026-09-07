@@ -90,30 +90,18 @@ class RAG:
         return documents
 
 
-    def generate(self, question, documents):
-
+    def generate(self, question, documents, prompt):
         context = "\n\n".join(
             document.page_content
             for document in documents
         )
 
-        prompt = f"""
-            Você é um assistente que responde perguntas
-            utilizando somente as informações presentes no contexto.
+        prompt_final = prompt.format(
+            context=context,
+            question=question
+        )
 
-            Se a resposta não estiver no contexto,
-            diga que não foi possível encontrar a informação.
-
-            Contexto:
-            {context}
-
-            Pergunta:
-            {question}
-
-            Resposta:
-            """
-
-        response = self.llm.invoke(prompt)
+        response = self.llm.invoke(prompt_final)
 
         if isinstance(response.content, list):
             return "".join(
@@ -125,14 +113,6 @@ class RAG:
         return response.content
 
 
-    def query(self, question):
-        """Executa o pipeline completo do RAG."""
-
+    def query(self, question, prompt):
         documents = self.retrieve(question)
-
-        answer = self.generate(
-            question,
-            documents
-        )
-
-        return answer
+        return self.generate(question, documents, prompt)

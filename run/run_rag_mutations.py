@@ -1,6 +1,12 @@
-from rag import RAG
+import sys
+from pathlib import Path
 
-from mutations import (
+sys.path.append(str(Path(__file__).resolve().parent.parent))
+
+from rag import RAG
+from langchain_core.prompts import ChatPromptTemplate
+
+from mutations.mutations_rag import (
     M01_alter_chunk_size,
     M02_alter_overlap,
     M03_alter_top_k,
@@ -12,6 +18,22 @@ PDF_PATH = "data/document.pdf"
 
 QUESTION = "O que é quick sort"
 EXPECTED_KEYWORD = None
+
+PROMPT = ChatPromptTemplate.from_template("""
+            Você é um assistente que responde perguntas
+            utilizando somente as informações presentes no contexto.
+
+            Se a resposta não estiver no contexto,
+            diga que não foi possível encontrar a informação.
+
+            Contexto:
+            {context}
+
+            Pergunta:
+            {question}
+
+            Resposta:
+            """)
 
 
 def run_mutation(name, config):
@@ -27,7 +49,7 @@ def run_mutation(name, config):
         top_k=config["top_k"]
     )
 
-    answer = rag.query(QUESTION)
+    answer = rag.query(QUESTION, PROMPT)
 
     print("\nResposta:")
     print(answer)
